@@ -91,17 +91,17 @@ void maintainIntervalSet(int o,int L,int R){
         else if(R==L){ sumv[o]=arr[L]; }
     }
 }
-integer change_toval;//区间的输都变为change_toval
+integer change_toval;//区间的数都变为change_toval
 void updateIntervalSet(int o,int L,int R){
     int lc=o*2,rc=o*2+1;
     if(chl<=L&&chr>=R)setv[o]=change_toval;
     else{
         pushdown(o);
         int mid=L+(R-L)/2;
-        if(chl<=mid)updateIntervalSet(lc,L,mid);else maintain(lc,L,mid);
-        if(chr>mid)updateIntervalSet(rc,mid+1,R);else maintain(rc,mid+1,R);
+        if(chl<=mid)updateIntervalSet(lc,L,mid);else maintainIntervalSet(lc,L,mid);
+        if(chr>mid)updateIntervalSet(rc,mid+1,R);else maintainIntervalSet(rc,mid+1,R);
     }
-    maintain(o,L,R);
+    maintainIntervalSet(o,L,R);
 }
 void queryInIntervalSet(int o,int L,int R){
     if(setv[o]>=0){
