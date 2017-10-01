@@ -7,7 +7,7 @@ void build_sa(int s[],int n,int m)
     memset(height,0,sizeof(height));
     memset(rankth,0,sizeof(rankth));
     memset(sa,0,sizeof(sa));
-	memset(c,0,sizeof(c));
+    memset(c,0,sizeof(c));
     int i,j,p,*x=t1,*y=t2;
     for(i=0;i<m;i++)c[i]=0;
     for(i=0;i<n;i++)c[x[i]=s[i]]++;
