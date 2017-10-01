@@ -1,9 +1,13 @@
 const int maxn=1e5+5;
 int t1[maxn],t2[maxn],c[maxn];
-int sa[maxn],rank[maxn],height[maxn];
-//rank(1~n) 下标从1开始，sa(0~n-1)下标从0开始，height下标从2开始(height[i]表示第i大的后缀和第i-1大的后缀的lcp)
+int sa[maxn],rankth[maxn],height[maxn];
+//rankth(1~n) 下标从1开始，sa(0~n-1)下标从0开始，height下标从2开始(height[i]表示第i大的后缀和第i-1大的后缀的lcp)
 void build_sa(int s[],int n,int m)
 {
+    memset(height,0,sizeof(height));
+    memset(rankth,0,sizeof(rankth));
+    memset(sa,0,sizeof(sa));
+	memset(c,0,sizeof(c));
     int i,j,p,*x=t1,*y=t2;
     for(i=0;i<m;i++)c[i]=0;
     for(i=0;i<n;i++)c[x[i]=s[i]]++;
@@ -29,13 +33,13 @@ void build_sa(int s[],int n,int m)
 void getHeight(int s[],int n)
 {
     int i,j,k=0;
-    for(i=0;i<=n;i++)rank[sa[i]]=i;
+    for(i=0;i<=n;i++)rankth[sa[i]]=i;
     for(i=0;i<n;i++)
     {
         if(k)k--;
-        j=sa[rank[i]-1];
+        j=sa[rankth[i]-1];
         while(s[i+k]==s[j+k])k++;
-        height[rank[i]]=k;
+        height[rankth[i]]=k;
     }
 }
 int loglen[maxn],multip[20][maxn];
@@ -64,7 +68,7 @@ int askRMQ(int a,int b)
 }
 int lcp(int a,int b)
 {
-    a=rank[a];b=rank[b];
+    a=rankth[a];b=rankth[b];
     if(a>b)swap(a,b);
     return height[askRMQ(a+1,b)];
 }
